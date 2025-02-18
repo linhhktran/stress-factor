@@ -123,5 +123,3 @@ Download the dataset from Kaggle using `opendatasets`. This dataset will be used
 ### **Conclusion:**
 
 The logistic regression model successfully predicts **stress levels** based on psychological, physiological, academic, and social factors. By improving areas such as **anxiety management**, **academic support**, and **sleep quality**, stress levels can be significantly reduced. Further model optimization and additional data collection can improve predictions.
-
----
