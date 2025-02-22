@@ -126,9 +126,13 @@ Let's take a quick look through data info to see if any missing values (See in G
 df.info()
 ```
 
-Luckily, the dataset do not have any missing values so we can 
+Luckily, the dataset does not have any missing values so we can skip handling missing values step.
+
 - The dataset is loaded, and the `stress_level` column is transformed into a binary format for easier classification.
 
+```python
+df['stress_level'] = df['stress_level'].map({0:0, 1:1, 2:1})
+```
 ---
 
 ## **Step 3: Exploratory Data Analysis (EDA)**
@@ -137,18 +141,229 @@ Luckily, the dataset do not have any missing values so we can
   
 - **Analyze correlations**: We check the relationship between the factors (such as anxiety, academic performance, etc.) and stress level using chi-square test.
 
+Let's plot bar charts showing the total counts in each factor in order to see general distribution of the dataset.
+```python
+import math
+
+# Define number of columns (3 per row) and calculate rows dynamically
+num_columns = 3
+num_plots = len(df.columns)
+num_rows = math.ceil(num_plots / num_columns)  # Calculate required rows
+
+# Adjust figure size dynamically based on the number of rows
+plt.figure(figsize=(19, num_rows * 5.5))
+
+for i, column in enumerate(df.columns, 1):
+    plt.subplot(num_rows, num_columns, i)  # Organize plots into grid layout (rows x 3 columns)
+    ax = sns.countplot(x=column, data=df, palette='mako')
+
+    # Add data labels on top of bars
+    for p in ax.patches:
+        ax.annotate(
+            f'{int(p.get_height())}',  # Convert count to integer
+            (p.get_x() + p.get_width() / 2, p.get_height()),  # Position text at the top center of the bar
+            ha='center',  # Horizontally align text at center
+            va='bottom',  # Position text slightly above the bar
+            fontsize=10,
+            color='black',
+            xytext=(0, 3),  # Offset to avoid overlap with the bar
+            textcoords="offset points"
+        )
+
+    plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+    plt.title(column)  # Set title for each subplot
+
+plt.tight_layout()  # Optimize layout to prevent overlap
+plt.show()
+```
+
+***image***
+
+### **Insights**
+
+**Psychological Factors:**
+
+*Anxiety Level:*
+
+*   Most responses concentrated in moderate anxiety levels (10-14), which is ~27% of the total
+
+
+*Self-Esteem:*
+
+
+*   Most responses concentrated in high self-esteem levels (25-30), which is ~33% of the total.
+
+*Mental Health History:*
+
+*   Individuals with and without mental health history are nearly equally distributed (50/50)
+
+*Depression:*
+
+*   Most responses concentrated in moderate depression levels (10-14), which is ~27% of the total.
+
+**Physiological Factors:**
+
+
+*Headache:*
+
+
+*   Many individuals experience headaches - they are mostly at level 1 and 3, which are very mild and modeate level respectively.
+
+
+*Blood Pressure:*
+
+*   Most students experience high blood pressure (level 2-3), which takes up ~73% of the total.
+
+*Sleep Quality:*
+
+*   Majority report poor sleep quality at level 1.
+
+
+*Breathing Problem:*
+
+*   Most have breathing problems, especially at mild level (level 2) and severe level (level 4)
+
+
+**Environmental Factors:**
+
+*Noise Level:*
+
+*  Many report low to moderate levels of noise (level 2-3).
+
+*Living Conditions:*
+
+*  Most report below average to average living conditions (level 2-3), with few extremes.
+
+
+*Safety:*
+
+*  Most report fair safety level, especially at level 2.
+
+*Basic Needs:*
+
+*  Most report fair access to basic needs, especially at level 2.
+
+
+**Academic Factors:**
+
+*Academic Performance:*
+
+*  Majority report below average academic performance (level 2).
+
+*Study Load:*
+
+*  Many report moderate study loads (level 2-3),
+
+*Teacher-Student Relationship:*
+
+*  Majority report fairly positive relationships (level 2).
+
+*Future Career Concerns:*
+
+*  Many are concerned about their careers, but just a light level (level 1).
+
+
+**Social Factors:**
+
+*Social Support:*
+
+*  Majority report adequate social support - mostly in level 1 and 3.
+
+*Peer Pressure:*
+
+*  Many report fair peer pressure level (level 2).
+
+*Extracurricular Activities:*
+
+*  Many participate in extracurricular activities, but not overwhelmingly, mostly level 2.
+
+*Bullying:*
+
+*  Majority report a significant number experience bullying at level 1.
+
+
+
+
 ---
 
-## **Step 4: Chi-Square Test**
+## **Step 4: Perform Chi-Square Test**
 
 - **Chi-Square Test** for independence between each categorical feature and stress level. This test helps assess whether a feature (e.g., anxiety level, self-esteem, etc.) is significantly related to the **stress_level** or not.
 
+
+Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, Chi-square test is performed to see if they are significantly related to stress_level or not.
+
+```python
+# List of numeric categorical variables
+categorical_columns = df.drop('stress_level', axis=1)
+categorical_variables = categorical_columns.columns
+
+# Store p-values for each variable
+p_values = {}
+
+# Loop through each numeric categorical variable and perform Chi-square test with stress_level
+for var in categorical_variables:
+    # Create a contingency table for each variable and the binary stress_level
+    contingency_table = pd.crosstab(df[var], df['stress_level'])
+
+    # Perform the Chi-square test of independence
+    chi2, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+
+    # Store the p-value
+    p_values[var] = p_value
+
+# Print the p-values for each variable
+p_values
+```
+{'anxiety_level': 1.1938362077342143e-141,
+ 'self_esteem': 2.411923932968084e-133,
+ 'mental_health_history': 1.7536764103203237e-76,
+ 'depression': 1.089618001608702e-135,
+ 'headache': 2.9046832125102588e-167,
+ 'blood_pressure': 3.4964796648828596e-179,
+ 'sleep_quality': 8.299021953291136e-151,
+ 'breathing_problem': 1.551118764502076e-91,
+ 'noise_level': 1.1642815766321163e-104,
+ 'living_conditions': 9.220630012635033e-107,
+ 'safety': 5.2216565809793016e-164,
+ 'basic_needs': 3.119078598356659e-162,
+ 'academic_performance': 1.2865044180425957e-163,
+ 'study_load': 3.193137200822339e-98,
+ 'teacher_student_relationship': 3.223795854151013e-169,
+ 'future_career_concerns': 5.498593724561714e-170,
+ 'social_support': 1.086203098107412e-79,
+ 'peer_pressure': 4.949628553186511e-88,
+ 'extracurricular_activities': 1.1071653825402377e-93,
+ 'bullying': 1.185223781907082e-164}
+
+All factors are related to stress_level, all are significantly associated with stress levels. --> use all of them in logistic regression.
+
 ---
 
-## **Step 5: Logistic Regression Model**
+## **Step 5: Build Logistic Regression Model**
 
 - **Build Logistic Regression Model** using **statsmodels**.
 - The model is evaluated using **classification report**, **confusion matrix**, and **accuracy** to assess how well it predicts stress levels based on the given factors.
+
+```python
+X = df.drop('stress_level', axis=1)
+y = df['stress_level']
+X = sm.add_constant(X)
+model = sm.Logit(y, X).fit()
+model.summary()
+```
+
+***image***
+
+### **Results:**
+Pseudo R-squared: $0.7775$
+
+>In this case, a value of 0.78 indicates a reasonably good fit.
+
+
+LLR p-value: $1.629e-129$
+
+>The p-value is extremely low, indicating that the model can significantly predict the target variable (stress_level).
 
 ---
 
