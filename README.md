@@ -467,7 +467,7 @@ plt.show()
 # Print sorted coefficients
 print(f'Sorted Coefficients: {sorted_coefficients}')
 ```
-![](images/feature_importance.jpg)
+![](images/feature_imp.jpg)
 ![](images/feat_coeff.jpg)
 
 
