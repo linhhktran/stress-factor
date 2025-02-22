@@ -176,8 +176,8 @@ for i, column in enumerate(df.columns, 1):
 plt.tight_layout()  # Optimize layout to prevent overlap
 plt.show()
 ```
+![](images/2.jpg)
 
-***image***
 
 ### **Insights**
 
@@ -216,7 +216,7 @@ plt.show()
 
 *Sleep Quality:*
 
-*   Majority report poor sleep quality at level 1.
+*   The majority report poor sleep quality at level 1.
 
 
 *Breathing Problem:*
@@ -232,7 +232,7 @@ plt.show()
 
 *Living Conditions:*
 
-*  Most report below average to average living conditions (level 2-3), with few extremes.
+*  Most report below-average to average living conditions (level 2-3), with few extremes.
 
 
 *Safety:*
@@ -248,7 +248,7 @@ plt.show()
 
 *Academic Performance:*
 
-*  Majority report below average academic performance (level 2).
+*  Majority report below-average academic performance (level 2).
 
 *Study Load:*
 
@@ -256,7 +256,7 @@ plt.show()
 
 *Teacher-Student Relationship:*
 
-*  Majority report fairly positive relationships (level 2).
+*  The majority report fairly positive relationships (level 2).
 
 *Future Career Concerns:*
 
@@ -289,7 +289,7 @@ plt.show()
 - **Chi-Square Test** for independence between each categorical feature and stress level. This test helps assess whether a feature (e.g., anxiety level, self-esteem, etc.) is significantly related to the `stress_level` or not.
 
 
-Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, Chi-square test is performed to see if they are significantly related to stress_level or not.
+Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, Chi-square test is performed to see if they are significantly related to `stress_level` or not.
 
 ```python
 # List of numeric categorical variables
@@ -313,26 +313,7 @@ for var in categorical_variables:
 # Print the p-values for each variable
 p_values
 ```
-{'anxiety_level': 1.1938362077342143e-141,
- 'self_esteem': 2.411923932968084e-133,
- 'mental_health_history': 1.7536764103203237e-76,
- 'depression': 1.089618001608702e-135,
- 'headache': 2.9046832125102588e-167,
- 'blood_pressure': 3.4964796648828596e-179,
- 'sleep_quality': 8.299021953291136e-151,
- 'breathing_problem': 1.551118764502076e-91,
- 'noise_level': 1.1642815766321163e-104,
- 'living_conditions': 9.220630012635033e-107,
- 'safety': 5.2216565809793016e-164,
- 'basic_needs': 3.119078598356659e-162,
- 'academic_performance': 1.2865044180425957e-163,
- 'study_load': 3.193137200822339e-98,
- 'teacher_student_relationship': 3.223795854151013e-169,
- 'future_career_concerns': 5.498593724561714e-170,
- 'social_support': 1.086203098107412e-79,
- 'peer_pressure': 4.949628553186511e-88,
- 'extracurricular_activities': 1.1071653825402377e-93,
- 'bullying': 1.185223781907082e-164}
+![](images/chi_square.jpg)
 
 All factors are related to `stress_level`, all are significantly associated with stress levels. --> use all of them in logistic regression.
 
@@ -351,7 +332,7 @@ model = sm.Logit(y, X).fit()
 model.summary()
 ```
 
-***image***
+![](images/logit_result.jpg)
 
 ### **Results:**
 Pseudo R-squared: $0.7775$
@@ -378,8 +359,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 model = sm.Logit(y_train, X_train).fit()
 model.summary()
 ```
+![](images/logit_train.jpg)
 
-***image***
 The prediction will be performed based on a probability, which threshold = $0.5$
 * if  $\text{prediction} > 0.5$ , student is likely to have stress.
 * if  $\text{prediction} \leq 0.5$ , student is likely to be stress-free.
@@ -394,34 +375,34 @@ y_pred = np.where(predictions > threshold, 1, 0)
 report = classification_report(y_test, y_pred)
 print(report)
 
+![](images/classification_report.jpg)
 
+**Accuracy:** $0.93$
 
-Accuracy: $0.93$
+* The model has a high accuracy (93%), which suggests that it correctly classifies a large proportion of instances.
 
-> The model has a high accuracy (93%), which suggests that it correctly classifies a large proportion of instances.
+**Precision, Recall, and F1-Score:**
 
-Precision, Recall, and F1-Score:
+**Class 0 (No Stress):**
 
-Class 0 (No Stress):
+* Precision $(0.88)$: The model correctly identifies 88% of the low stress cases.
 
-> Precision $(0.88)$: The model correctly identifies 88% of the low stress cases.
+* Recall $(0.92)$: The model correctly identifies 92% of actual low stress cases.
 
->Recall $(0.92)$: The model correctly identifies 92% of actual low stress cases.
+* F1-Score $(0.90)$: A balanced measure that combines precision and recall, showing good performance for class 0.
 
-> F1-Score $(0.90)$: A balanced measure that combines precision and recall, showing good performance for class 0.
+**Class 1 (Stress):**
 
-Class 1 (Stress):
+* Precision $(0.96)$: The model has a high precision in identifying high stress cases (96%).
 
-> Precision $(0.96)$: The model has a high precision in identifying high stress cases (96%).
+* Recall $(0.94)$: The model identifies 94% of the actual high stress cases.
 
-> Recall $(0.94)$: The model identifies 94% of the actual high stress cases.
+* F1-Score $(0.95)$: This is a very good score, showing that the model does an excellent job identifying high stress instances.
 
-> F1-Score $(0.95)$: This is a very good score, showing that the model does an excellent job identifying high stress instances.
-
-Macro avg:
+**Macro avg:**
 * Over $0.90$ for precision and recall, indicating a good overall performance across both classes.
 
-Weighted avg:
+**Weighted avg:**
 * Over $0.90$ for both precision and recall, showing that the model is balanced in its performance on both classes, with a slight bias towards class 1.
 
 
@@ -435,7 +416,7 @@ disp.plot(cmap='mako')
 plt.title('Confusion Matrix')
 plt.show()
 ```
-***image***
+![](images/confusion_matrix.jpg)
 
 * True positives $(139)$: Stress instances correctly predicted as stress.
 * False positives $(6)$: No-stress instances incorrectly predicted as stress.
@@ -457,7 +438,7 @@ coefficients = model.params
 # Exclude the constant term (usually 'const')
 coefficients_without_const = coefficients[coefficients.index != 'const']
 
-# Now you can sort the coefficients to get feature importance
+# Sort the coefficients to get feature importance
 sorted_indices = np.argsort(np.abs(coefficients_without_const))[::1]
 sorted_coefficients = coefficients_without_const[sorted_indices]
 sorted_features = coefficients_without_const.index[sorted_indices]
@@ -471,7 +452,8 @@ plt.show()
 # Print sorted coefficients
 print(f'Sorted Coefficients: {sorted_coefficients}')
 ```
-***image***
+![](images/feature_importance.jpg)
+![](images/feat_coeff.jpg)
 
 
 *Most Important Features:*
@@ -482,7 +464,7 @@ They are among the most important factors in predicting stress levels. The large
 
 >**Academic Performance, Study Load, and Basic Needs (positive coeff)**
 
-They also appear to have substantial importance, highlighting the role of academic and physiological stressors in determining stress levels. Because they have positive coefficient, the relationship between them and stress_level would be positive.
+They also appear to have substantial importance, highlighting the role of academic and physiological stressors in determining stress levels. Because they have positive coefficients, the relationship between them and `stress_level` would be positive.
 
 
 
