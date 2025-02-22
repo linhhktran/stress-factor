@@ -57,7 +57,7 @@ The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/stud
 
 ## Tools and techniques applied
 ### 1. Tools
-Google Colabs: using Python to load data, clean data, build a predictive model, and do feature analysis.
+Google Colabs: using Python to load data, EDA, build a predictive model, and do feature analysis.
 ### 2. Techniques
 
 In this project, I will use the Logistic Regression Model to predict the stress level (Yes/No) of students and use train_test_split, classification_report, and confusion_matrix to evaluate the model.
