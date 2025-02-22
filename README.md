@@ -57,7 +57,7 @@ The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/stud
 
 ## Tools and techniques applied
 ### 1. Tools
-Google Colabs: using Python to load data, clean data, build Ma predictive models, and do feature analysis.
+Google Colabs: using Python to load data, clean data, build a predictive model, and do feature analysis.
 ### 2. Techniques
 
 In this project, I will use the Logistic Regression Model to predict the stress level (Yes/No) of students and use train_test_split, classification_report, and confusion_matrix to evaluate the model.
@@ -121,12 +121,13 @@ df = pd.read_csv("/content/student-stress-factors-a-comprehensive-analysis/Stres
 df.head()
 ```
 
-Let's take a quick look through data info to see if any missing values (See in Google Colab Notebook)
+Let's take a quick look through data info to see if any missing values
 ```python
 df.info()
 ```
+![](images/1.jpg)
 
-Luckily, the dataset does not have any missing values so we can skip handling missing values step.
+Luckily, the dataset does not have any missing values, and the data types are suitable so we can skip the handling missing values step.
 
 - The dataset is loaded, and the `stress_level` column is transformed into a binary format for easier classification.
 
@@ -281,6 +282,16 @@ plt.show()
 
 *  The majority report a significant number experience bullying at level 1.
 
+**In summary:**
+
+* **Anxiety Level** – High levels of anxiety can significantly contribute to overall stress.
+* **Depression** – Moderate to high levels of depression often correlate with increased stress.
+* **Blood Pressure** – Elevated blood pressure is commonly linked to stress, especially in individuals with chronic stress.
+* **Sleep Quality** – Poor sleep can exacerbate stress and lead to feelings of fatigue and irritability.
+* **Study Load** – A heavy study load, especially if moderate to high, can increase stress.
+* **Social Support** – Insufficient social support or inadequate relationships can exacerbate stress levels.
+* **Peer Pressure** – Moderate to high peer pressure can cause stress, particularly in academic or social contexts.
+* **Bullying** – Experiencing bullying can lead to severe psychological stress and emotional distress.
 
 ---
 
@@ -289,17 +300,17 @@ plt.show()
 - **Chi-Square Test** for independence between each categorical feature and stress level. This test helps assess whether a feature (e.g., anxiety level, self-esteem, etc.) is significantly related to the `stress_level` or not.
 
 
-Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, Chi-square test is performed to see if they are significantly related to `stress_level` or not.
+Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, the Chi-square test is performed to see if they are significantly related to `stress_level` or not.
 
 ```python
-# List of numeric categorical variables
+# List of categorical variables
 categorical_columns = df.drop('stress_level', axis=1)
 categorical_variables = categorical_columns.columns
 
 # Store p-values for each variable
 p_values = {}
 
-# Loop through each numeric categorical variable and perform Chi-square test with stress_level
+# Loop through each numeric categorical variable and perform the Chi-square test with stress_level
 for var in categorical_variables:
     # Create a contingency table for each variable and the binary stress_level
     contingency_table = pd.crosstab(df[var], df['stress_level'])
@@ -315,7 +326,7 @@ p_values
 ```
 ![](images/chi_square.jpg)
 
-All factors are related to `stress_level`, all are significantly associated with stress levels. --> use all of them in logistic regression.
+All factors are related to `stress_level`, and all are significantly associated with stress levels. --> use all of them in logistic regression.
 
 ---
 
@@ -367,14 +378,15 @@ The prediction will be performed based on a probability, which threshold = $0.5$
 
 ### ** Classification Report **
 
+```python
 #probability
 predictions = model.predict(X_test)
 threshold = 0.5
 y_pred = np.where(predictions > threshold, 1, 0)
-# generate the classification report
+#generate the classification report
 report = classification_report(y_test, y_pred)
 print(report)
-
+```
 ![](images/classification_report.jpg)
 
 **Accuracy:** $0.93$
@@ -385,19 +397,19 @@ print(report)
 
 **Class 0 (No Stress):**
 
-* Precision $(0.88)$: The model correctly identifies 88% of the low stress cases.
+* Precision $(0.88)$: The model correctly identifies 88% of the no-stress cases.
 
-* Recall $(0.92)$: The model correctly identifies 92% of actual low stress cases.
+* Recall $(0.92)$: The model correctly identifies 92% of actual no-stress cases.
 
 * F1-Score $(0.90)$: A balanced measure that combines precision and recall, showing good performance for class 0.
 
 **Class 1 (Stress):**
 
-* Precision $(0.96)$: The model has a high precision in identifying high stress cases (96%).
+* Precision $(0.96)$: The model has a high precision in identifying stress cases (96%).
 
-* Recall $(0.94)$: The model identifies 94% of the actual high stress cases.
+* Recall $(0.94)$: The model identifies 94% of the actual stress cases.
 
-* F1-Score $(0.95)$: This is a very good score, showing that the model does an excellent job identifying high stress instances.
+* F1-Score $(0.95)$: This is a very good score, showing that the model does an excellent job identifying stress instances.
 
 **Macro avg:**
 * Over $0.90$ for precision and recall, indicating a good overall performance across both classes.
