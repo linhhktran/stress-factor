@@ -58,6 +58,17 @@ Download the dataset from Kaggle using `opendatasets`. This dataset will be used
 ---
 
 ## **Step 2: Import Libraries and Process Data**
+Libraries used in this project: 
+- pandas: Data manipulation and analysis.
+- numpy: Numerical operations.
+- matplotlib.pyplot: Plotting and data visualization.
+- seaborn: Enhanced data visualization.
+- statsmodels.api: Statistical modeling and hypothesis testing.
+- sklearn.model_selection: Splitting data and cross-validation.
+- sklearn.linear_model: Machine learning models (logistic regression, etc.).
+- scipy.stats: Statistical functions and tests.
+- sklearn.metrics: Model evaluation and performance metrics.
+
 - Required libraries: `pandas`, `numpy`, `matplotlib`, `seaborn`, `statsmodels`, `scipy and `sklearn`.
 - The dataset is loaded, and the `stress_level` column is transformed into a binary format for easier classification.
 
