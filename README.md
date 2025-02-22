@@ -284,6 +284,7 @@ plt.show()
 
 **Conclusion:**
 
+The following features are likely to affect the overall stress level significantly:
 * **Anxiety Level** – High levels of anxiety can significantly contribute to overall stress.
 * **Depression** – Moderate to high levels of depression often correlate with increased stress.
 * **Blood Pressure** – Elevated blood pressure is commonly linked to stress, especially in individuals with chronic stress.
