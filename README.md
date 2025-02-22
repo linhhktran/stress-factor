@@ -21,7 +21,7 @@ The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/stud
   - **Academic Factors** → 'academic_performance', 'study_load', 'teacher_student_relationship', 'future_career_concerns'  
   - **Social Factors** → 'social_support', 'peer_pressure', 'extracurricular_activities', 'bullying'
 
-### **Scale Explanation:**
+## **Scale Explanation:**
 - **‘anxiety_level' (0-21)**: Generalized Anxiety Disorder Scale (GAD-7)
   - 0–4: Minimal anxiety
   - 5–9: Mild anxiety
@@ -55,11 +55,17 @@ The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/stud
   - 4: Good
   - 5: Very Good
 
+## Tools and techniques applied
+### 1. Tools
+- Google Colabs: using Python to load data, clean data, build Ma predictive models, and do feature analysis.
+### 2. Techniques
+- In this project, I will use Logistic Regression Model to predict the stress level (Yes/No) of students and using train_test_split, classification_report and confusion_matrix to evaluate the model.
 ---
 
 ## **Step 1: Data Download**
 
 Download the dataset from Kaggle using `opendatasets`. This dataset will be used to analyze the stress factors and predict stress levels.
+
 
 ---
 
