@@ -363,6 +363,7 @@ LLR p-value: $1.629e-129$
 - **Train-Test Split**: Data is split into training and testing sets to evaluate the model on unseen data.
 - **Classification Report**: The model’s precision, recall, F1-score, and accuracy are evaluated.
 - **Confusion Matrix**: This visualizes the model's performance, showing how many true positives, true negatives, false positives, and false negatives it produced.
+- **Feature Importance**: The model's coefficients are examined to determine which features most significantly influence the prediction of stress levels.
 
 Now to simulate prediction on data, we will again divide our data into training and testing data using `train_test_split`.
 
@@ -377,7 +378,7 @@ The prediction will be performed based on a probability, which threshold = $0.5$
 * if  $\text{prediction} > 0.5$ , student is likely to have stress.
 * if  $\text{prediction} \leq 0.5$ , student is likely to be stress-free.
 
-### ** Classification Report **
+### **Classification Report**
 
 ```python
 #probability
