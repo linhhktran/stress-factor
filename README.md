@@ -279,16 +279,14 @@ plt.show()
 
 *Bullying:*
 
-*  Majority report a significant number experience bullying at level 1.
-
-
+*  The majority report a significant number experience bullying at level 1.
 
 
 ---
 
 ## **Step 4: Perform Chi-Square Test**
 
-- **Chi-Square Test** for independence between each categorical feature and stress level. This test helps assess whether a feature (e.g., anxiety level, self-esteem, etc.) is significantly related to the **stress_level** or not.
+- **Chi-Square Test** for independence between each categorical feature and stress level. This test helps assess whether a feature (e.g., anxiety level, self-esteem, etc.) is significantly related to the `stress_level` or not.
 
 
 Since all of the above variables are categorical, Pearson’s correlation cannot be used to measure the strength and direction of their linear relationship. In this case, Chi-square test is performed to see if they are significantly related to stress_level or not.
@@ -336,7 +334,7 @@ p_values
  'extracurricular_activities': 1.1071653825402377e-93,
  'bullying': 1.185223781907082e-164}
 
-All factors are related to stress_level, all are significantly associated with stress levels. --> use all of them in logistic regression.
+All factors are related to `stress_level`, all are significantly associated with stress levels. --> use all of them in logistic regression.
 
 ---
 
@@ -363,7 +361,7 @@ Pseudo R-squared: $0.7775$
 
 LLR p-value: $1.629e-129$
 
->The p-value is extremely low, indicating that the model can significantly predict the target variable (stress_level).
+>The p-value is extremely low, indicating that the model can significantly predict the target variable (`stress_level`).
 
 ---
 
@@ -372,6 +370,79 @@ LLR p-value: $1.629e-129$
 - **Train-Test Split**: Data is split into training and testing sets to evaluate the model on unseen data.
 - **Classification Report**: The model’s precision, recall, F1-score, and accuracy are evaluated.
 - **Confusion Matrix**: This visualizes the model's performance, showing how many true positives, true negatives, false positives, and false negatives it produced.
+
+Now to simulate prediction on data, we will again divide our data into training and testing data using `train_test_split`.
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = sm.Logit(y_train, X_train).fit()
+model.summary()
+```
+
+***image***
+The prediction will be performed based on a probability, which threshold = $0.5$
+* if  $\text{prediction} > 0.5$ , student is likely to have stress.
+* if  $\text{prediction} \leq 0.5$ , student is likely to be stress-free.
+
+### ** Classification Report **
+
+#probability
+predictions = model.predict(X_test)
+threshold = 0.5
+y_pred = np.where(predictions > threshold, 1, 0)
+# generate the classification report
+report = classification_report(y_test, y_pred)
+print(report)
+
+
+
+Accuracy: $0.93$
+
+> The model has a high accuracy (93%), which suggests that it correctly classifies a large proportion of instances.
+
+Precision, Recall, and F1-Score:
+
+Class 0 (No Stress):
+
+> Precision $(0.88)$: The model correctly identifies 88% of the low stress cases.
+
+>Recall $(0.92)$: The model correctly identifies 92% of actual low stress cases.
+
+> F1-Score $(0.90)$: A balanced measure that combines precision and recall, showing good performance for class 0.
+
+Class 1 (Stress):
+
+> Precision $(0.96)$: The model has a high precision in identifying high stress cases (96%).
+
+> Recall $(0.94)$: The model identifies 94% of the actual high stress cases.
+
+> F1-Score $(0.95)$: This is a very good score, showing that the model does an excellent job identifying high stress instances.
+
+Macro avg:
+* Over $0.90$ for precision and recall, indicating a good overall performance across both classes.
+
+Weighted avg:
+* Over $0.90$ for both precision and recall, showing that the model is balanced in its performance on both classes, with a slight bias towards class 1.
+
+
+### **Confusion Matrix**
+
+```python
+cm = confusion_matrix(y_test, y_pred)
+# Display the confusion matrix
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap='mako')
+plt.title('Confusion Matrix')
+plt.show()
+```
+***image***
+
+* True positives $(139)$: Stress instances correctly predicted as stress.
+* False positives $(6)$: No-stress instances incorrectly predicted as stress.
+* True negatives $(66)$: No-stress instances correctly predicted as no-stress.
+* False negatives $(9)$: Stress instances incorrectly predicted as no-stress.
+
+>This suggests that the model is better at identifying stress cases but has some room for improvement in distinguishing no-stress cases (as seen in the false positives).
 
 ---
 
