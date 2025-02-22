@@ -1,10 +1,16 @@
 # Analyzing Student Stress Factors for Improved Mental Health Support
 ![image](https://img.freepik.com/premium-photo/student-stress-concept-illustration-jpg_1072857-4797.jpg)
-## **Purpose and Outcome:**
+## **Introduction**
+Student stress is a growing issue in academic institutions, significantly affecting students' mental and physical well-being. This project aims to analyze various psychological, physiological, academic, and social factors contributing to student stress levels, using data analysis and machine learning techniques to identify key stressors and predict stress levels. By understanding these factors, the project seeks to provide valuable insights for improving mental health support and well-being programs in schools and universities, helping educators and health professionals implement effective strategies to manage and reduce stress, ultimately enhancing students' academic and personal experiences.
+
+
+## **Purpose and Outcome**
 - **Purpose:** To identify key factors contributing to student stress and develop actionable strategies for improving mental health support in academic institutions.
 - **Outcome:** Create a model that predicts stress levels, helping schools and mental health professionals understand the main reasons students feel stressed. This can guide changes or provide support where it is needed most.
 
 ---
+## **Data source**
+The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/student-stress-factors-a-comprehensive-analysis/data 
 
 ## **Dataset Information:**
 - **Number of Observations (Rows)**: 1,100.
