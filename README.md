@@ -121,7 +121,7 @@ df = pd.read_csv("/content/student-stress-factors-a-comprehensive-analysis/Stres
 df.head()
 ```
 
-Let's take a quick look through data info to see if any missing values
+Let's take a quick look through the data info to see if any missing values
 ```python
 df.info()
 ```
@@ -282,7 +282,7 @@ plt.show()
 
 *  The majority report a significant number experience bullying at level 1.
 
-**In summary:**
+**Conclusion:**
 
 * **Anxiety Level** – High levels of anxiety can significantly contribute to overall stress.
 * **Depression** – Moderate to high levels of depression often correlate with increased stress.
@@ -326,7 +326,7 @@ p_values
 ```
 ![](images/chi_square.jpg)
 
-All factors are related to `stress_level`, and all are significantly associated with stress levels. --> use all of them in logistic regression.
+**Conclusion**: All features are related to `stress_level`, and all are significantly associated with `stress_level`. --> All of them can be used in logistic regression.
 
 ---
 
@@ -546,4 +546,4 @@ print(y_pred)
 
 ### **Conclusion:**
 
-The logistic regression model successfully predicts **stress levels** based on psychological, physiological, academic, and social factors. By improving areas such as **anxiety management**, **academic support**, and **sleep quality**, stress levels can be significantly reduced. Further model optimization and additional data collection can improve predictions.
+The logistic regression model successfully predicts `stress_level` based on psychological, physiological, academic, and social factors. By improving areas such as **anxiety management**, **academic support**, and **sleep quality**, stress levels can be significantly reduced. Further model optimization and additional data collection can improve predictions.
