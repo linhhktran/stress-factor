@@ -57,15 +57,37 @@ The dataset is obtained from Kaggle: https://www.kaggle.com/datasets/rxnach/stud
 
 ## Tools and techniques applied
 ### 1. Tools
-- Google Colabs: using Python to load data, clean data, build Ma predictive models, and do feature analysis.
+Google Colabs: using Python to load data, clean data, build Ma predictive models, and do feature analysis.
 ### 2. Techniques
-- In this project, I will use Logistic Regression Model to predict the stress level (Yes/No) of students and using train_test_split, classification_report and confusion_matrix to evaluate the model.
+
+In this project, I will use the Logistic Regression Model to predict the stress level (Yes/No) of students and use train_test_split, classification_report, and confusion_matrix to evaluate the model.
+
 ---
 
 ## **Step 1: Data Download**
 
 Download the dataset from Kaggle using `opendatasets`. This dataset will be used to analyze the stress factors and predict stress levels.
+```python
+!pip install opendatasets
+```
 
+Since I do not want to download the dataset manually, I am using this library to automatically download it by entering the Kaggle API Key:
+```python
+import opendatasets as od
+od.download("https://www.kaggle.com/datasets/rxnach/student-stress-factors-a-comprehensive-analysis?utm_medium=social&utm_campaign=kaggle-dataset-share&utm_source=facebook&fbclid=IwY2xjawIbRtpleHRuA2FlbQIxMQABHRdRNGmQAKlzUZb-JqmCkOyh_hwJ-NBBiiMx_HEVgykntNr09IPuZSJXWQ_aem_L-4C_GcPU3m4ROoQy4Dd9Q")
+```
+
+**How to get the Kaggle API Key to download dataset on Kaggle:**
+
+- Go to Your Kaggle Account Settings
+- On the page shown in the image, click on your profile icon in the top right corner.
+- From the dropdown menu, select "Settings". Scroll Down to the API Section
+- In the API section, you’ll find an option to Create New API Token.
+- Download kaggle.json:
+- After clicking "Create New API Token", a file named kaggle.json will be downloaded to your computer.
+- Open kaggle.json for your information and type in username and key.
+
+Then the dataset should be imported to Google Colab Notebook File.
 
 ---
 
@@ -81,7 +103,32 @@ Libraries used in this project:
 - scipy.stats: Statistical functions and tests.
 - sklearn.metrics: Model evaluation and performance metrics.
 
-- Required libraries: `pandas`, `numpy`, `matplotlib`, `seaborn`, `statsmodels`, `scipy and `sklearn`.
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+import scipy.stats as stats
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+```
+
+Let's take a quick look over 5 first rows of the dataset (In Google Colab Notebook)
+```python
+df = pd.read_csv("/content/student-stress-factors-a-comprehensive-analysis/StressLevelDataset.csv")
+df.head()
+```
+
+Let's take a quick look through data info to see if any missing values.
+```python
+df.info()
+```
+![](images/df.info.png)
+
+
+
 - The dataset is loaded, and the `stress_level` column is transformed into a binary format for easier classification.
 
 ---
