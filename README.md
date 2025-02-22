@@ -436,7 +436,8 @@ plt.show()
 * False positives $(6)$: No-stress instances incorrectly predicted as stress.
 * True negatives $(66)$: No-stress instances correctly predicted as no-stress.
 * False negatives $(9)$: Stress instances incorrectly predicted as no-stress.
->Accuracy: The model does a great job overall, as it makes 66 correct predictions for no stress and 139 correct predictions for stress, with a few mistakes.
+>*Accuracy:* The model does a great job overall, as it makes 66 correct predictions for no stress and 139 correct predictions for stress, with a few mistakes.
+
 > In general, the model is doing a great job at predicting stress levels. Moreover, this suggests that the model is better at identifying stress cases but has some room for improvement in distinguishing no-stress cases (as seen in the false positives).
 
 
@@ -474,11 +475,11 @@ print(f'Sorted Coefficients: {sorted_coefficients}')
 
 >**Blood Pressure, Social Support, and Mental Health History (negative coeff)**
 
-They are among the most important factors in predicting stress levels. The large coefficients indicate that changes in these features significantly affect stress predictions. Because they have negative coefficient, the relationship between them and stress_level would be inverse.
+They are among the most important factors in predicting stress levels. The large coefficients indicate that changes in these features significantly affect stress predictions. Because they have negative coefficients, the relationship between them and `stress_level would` be inverse.
 
->**Academic Performance, Study Load, and Basic Needs (positive coeff)**
+>**Study Load, Extracurricular Activities , and Bullying (positive coeff)**
 
-They also appear to have substantial importance, highlighting the role of academic and physiological stressors in determining stress levels. Because they have positive coefficients, the relationship between them and `stress_level` would be positive.
+They also appear to have substantial importance, highlighting the role of academic and social stressors in determining stress levels. Because they have positive coefficients, the relationship between them and `stress_level` would be positive.
 
 
 ## **Key features:**
@@ -493,8 +494,8 @@ They also appear to have substantial importance, highlighting the role of academ
 - **Focus on managing anxiety** and **depression**.
 - Improve **sleep quality** and address **headaches**.
 - Provide **academic support** for students with poor performance and high study load.
-- **Strengthen social support networks** and reduce **peer pressure**.
-- Address **bullying** and enhance **safety measures**.
+- **Strengthen social support networks** can help reduce stress significantly.
+- Address **bullying** by organizing workshops or psychological support. 
 
 ---
 
