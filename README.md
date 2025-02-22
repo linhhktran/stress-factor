@@ -481,12 +481,6 @@ They are among the most important factors in predicting stress levels. The large
 
 They also appear to have substantial importance, highlighting the role of academic and social stressors in determining stress levels. Because they have positive coefficients, the relationship between them and `stress_level` would be positive.
 
-
-## **Key features:**
-* Psychological Factors (like anxiety, depression, and peer pressure) have positive correlations with stress, meaning as these factors increase, stress levels also increase.
-* Social Support and safety have negative correlations, meaning having more support and a greater sense of safety helps to reduce stress.
-* Some features like academic performance and study load show a negative relationship, possibly because students who are more confident in their academic standing or have manageable workloads experience less stress.
-* Blood Pressure is unusually high with a negative coefficient, which needs further investigation.
 ---
 
 ## **Recommendations**
