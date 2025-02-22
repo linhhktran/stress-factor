@@ -436,8 +436,8 @@ plt.show()
 * False positives $(6)$: No-stress instances incorrectly predicted as stress.
 * True negatives $(66)$: No-stress instances correctly predicted as no-stress.
 * False negatives $(9)$: Stress instances incorrectly predicted as no-stress.
-
->This suggests that the model is better at identifying stress cases but has some room for improvement in distinguishing no-stress cases (as seen in the false positives).
+>Accuracy: The model does a great job overall, as it makes 66 correct predictions for no stress and 139 correct predictions for stress, with a few mistakes.
+> In general, the model is doing a great job at predicting stress levels. Moreover, this suggests that the model is better at identifying stress cases but has some room for improvement in distinguishing no-stress cases (as seen in the false positives).
 
 
 ### **Feature Importance**
