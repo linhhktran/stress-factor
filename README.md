@@ -121,14 +121,12 @@ df = pd.read_csv("/content/student-stress-factors-a-comprehensive-analysis/Stres
 df.head()
 ```
 
-Let's take a quick look through data info to see if any missing values.
+Let's take a quick look through data info to see if any missing values (See in Google Colab Notebook)
 ```python
 df.info()
 ```
-![](images/df.info.png)
 
-
-
+Luckily, the dataset do not have any missing values so we can 
 - The dataset is loaded, and the `stress_level` column is transformed into a binary format for easier classification.
 
 ---
