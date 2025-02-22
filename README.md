@@ -444,18 +444,94 @@ plt.show()
 
 >This suggests that the model is better at identifying stress cases but has some room for improvement in distinguishing no-stress cases (as seen in the false positives).
 
----
 
-## **Step 7: Feature Importance**
+### **Feature Importance**
 
 - **Extract Feature Coefficients**: The model's coefficients are examined to determine which features most significantly influence the prediction of stress levels.
 - Features with higher absolute values in the coefficients are considered **more important**.
 
+```python
+ # Get the coefficients (log-odds) of the features
+coefficients = model.params
+
+# Exclude the constant term (usually 'const')
+coefficients_without_const = coefficients[coefficients.index != 'const']
+
+# Now you can sort the coefficients to get feature importance
+sorted_indices = np.argsort(np.abs(coefficients_without_const))[::1]
+sorted_coefficients = coefficients_without_const[sorted_indices]
+sorted_features = coefficients_without_const.index[sorted_indices]
+
+# Plotting feature importance
+plt.barh(sorted_features, sorted_coefficients, color='teal')
+plt.xlabel('Coefficient Value')
+plt.title('Feature Importance from Logistic Regression')
+plt.show()
+
+# Print sorted coefficients
+print(f'Sorted Coefficients: {sorted_coefficients}')
+```
+***image***
+
+
+*Most Important Features:*
+
+>**Blood Pressure, Social Support, and Mental Health History (negative coeff)**
+
+They are among the most important factors in predicting stress levels. The large coefficients indicate that changes in these features significantly affect stress predictions. Because they have negative coefficient, the relationship between them and stress_level would be inverse.
+
+>**Academic Performance, Study Load, and Basic Needs (positive coeff)**
+
+They also appear to have substantial importance, highlighting the role of academic and physiological stressors in determining stress levels. Because they have positive coefficient, the relationship between them and stress_level would be positive.
+
+
+
+## **Key features:**
+* Psychological Factors (like anxiety, depression, and peer pressure) have positive correlations with stress, meaning as these factors increase, stress levels also increase.
+* Social Support and safety have negative correlations, meaning having more support and a greater sense of safety helps to reduce stress.
+* Some features like academic performance and study load show a negative relationship, possibly because students who are more confident in their academic standing or have manageable workloads experience less stress.
+* Blood Pressure is unusually high with a negative coefficient, which needs further investigation.
 ---
 
 ## **Step 8: Prediction on Test Data**
 
 - The trained model is used to make predictions on a new set of test data. Predictions are made based on a threshold of 0.5.
+
+```python
+test_data = {
+    'anxiety_level': [15, 10, 9, 12, 11],  # Example values for test data
+    'self_esteem': [8, 14, 11, 12, 17],
+    'mental_health_history': [1, 0, 1, 0, 0],
+    'depression': [0, 1, 0, 1, 0],
+    'headache': [1, 0, 1, 0, 0],
+    'blood_pressure': [1, 1, 2, 2, 3],
+    'sleep_quality': [3, 4, 2, 5, 3],
+    'breathing_problem': [0, 0, 1, 0, 0],
+    'noise_level': [3, 2, 5, 3, 4],
+    'living_conditions': [4, 2, 5, 3, 3],
+    'safety': [1, 0, 1, 0, 1],
+    'basic_needs': [5, 3, 4, 5, 3],
+    'academic_performance': [3, 4, 2, 3, 4],
+    'study_load': [2, 3, 3, 4, 2],
+    'teacher_student_relationship': [4, 3, 4, 4, 2],
+    'future_career_concerns': [1, 2, 3, 1, 2],
+    'social_support': [4, 5, 2, 3, 3],
+    'peer_pressure': [3, 4, 2, 1, 3],
+    'extracurricular_activities': [3, 2, 4, 3, 3],
+    'bullying': [0, 0, 1, 1, 0]
+}
+
+# Convert the test_data dictionary to a pandas DataFrame
+test_df = pd.DataFrame(test_data)
+
+# Add a constant column
+test_df = sm.add_constant(test_df)
+
+# sample prediction
+predictions = model.predict(test_df)
+y_pred = np.where(predictions > threshold, 1, 0)
+print(y_pred)
+```
 
 ---
 
