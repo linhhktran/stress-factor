@@ -334,7 +334,7 @@ p_values
 ## **Step 5: Build Logistic Regression Model**
 
 - **Build Logistic Regression Model** using `statsmodels`.
-- The model is evaluated using `classification report`, `confusion matrix`, and `accuracy` to assess how well it predicts stress levels based on the given factors.
+- The model is evaluated using `classification report` and `confusion matrix` to assess how well it predicts stress levels based on the given factors.
 
 ```python
 X = df.drop('stress_level', axis=1)
