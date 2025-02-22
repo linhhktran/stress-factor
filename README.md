@@ -486,7 +486,7 @@ They also appear to have substantial importance, highlighting the role of academ
 ## **Recommendations**
 
 - **Focus on managing anxiety** and **depression**.
-- Improve **sleep quality** and address **headaches**.
+- Improve **sleep quality** and address **blood_pressure**.
 - Provide **academic support** for students with poor performance and high study load.
 - **Strengthen social support networks** can help reduce stress significantly.
 - Address **bullying** by organizing workshops or psychological support. 
